@@ -79,7 +79,12 @@ class UDPServer:
         # Getting the video duration in seconds using FFmpeg
         command = ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", video_path]
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-        duration = float(result.stdout.strip())
+        try:
+            duration = float(result.stdout.strip())
+        except ValueError:
+            print(f"Error converting ffmpeg output to float: {result.stdout}")
+            duration = 0  # Or set a default duration or handle the error as needed.
+
         
         # Calculate total number of packets
         video_size = os.path.getsize(video_path)

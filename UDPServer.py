@@ -24,7 +24,7 @@ class UDPServer:
         self.registered_clients.add(client_address)
 
     def start(self):
-        self.logger.info("UDPServer started.")
+        self.logger.info("UDPServer started on adress: " + self.udp_manager.get_ip() + ":" + str(self.udp_manager.port))
 
         self.logger.info("Listening for registration, will start streaming in 30 seconds")
         self.udp_manager.set_timeout(1)
